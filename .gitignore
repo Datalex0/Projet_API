@@ -1,0 +1,5 @@
+.venv
+.idea
+LICENSE.md
+README.md
+*__pycache__/
