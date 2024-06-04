@@ -274,13 +274,11 @@ def ajout_objet():
 if __name__ == "__main__":
     app.run(debug=True)
 
-# @app.route('/objet/ajout', methods=['GET'])
-# def ajout():
-#     return ''' <h1>Ajouter un objet : </h1>'''
-
-# @app.route('/objet/suppr', methods=['GET'])
-# def suppr():
-#     return ''' <h1>Supprimer un objet : </h1>'''
+@app.route('/objet/suppr', methods=['GET'])
+def suppr_objet():
+    data = request.json
+    supprimer
+    return 
 
 # @app.route('/objet/modifier', methods=['GET'])
 # def modifier():
