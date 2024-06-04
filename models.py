@@ -50,6 +50,7 @@ class Objet(Base):
 	poidsobj = Column(Numeric, default=0.0000)
 	nb_points = Column(Integer, default=0)
 	est_actif = Column(Boolean, default=True)
+	condit = relationship("ObjetCond",back_populates='objets')
 
 class ObjetCond(Base):
 	__tablename__ = "rel_objet_conditionnement"
