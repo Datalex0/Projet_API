@@ -25,64 +25,61 @@ def home():
 # def read_liste_clients():
 #     pass
 
-@app.route('/client', methods=['GET'])
-def read_client():
-    return ''' <p>test</p>'''
+# @app.route('/client', methods=['GET'])
+# def read_client():
+#     return ''' <p>test</p>'''
 
-@app.route('/client', methods=['POST'])
-def ajout_client():
-    # Créer un nouveau client
-    data = request.json
-    nouveau_client = Client(
-        genrecli=data["genrecli"],
-        nomcli=data["nomcli"],
-        prenomcli=data["prenomcli"],
-        adresse1cli=data["adresse1cli"],
-        villecliid=data["villecliid"],
-        telcli=data["telcli"],
-        emailcli=data["emailcli"],
-        portcli=data["portcli"],
-        newsletter=data["newsletter"]
-    )
+# @app.route('/client', methods=['POST'])
+# def ajout_client():
+#     # Créer un nouveau client
+#     data = request.json
+#     nouveau_client = Client(
+#         genrecli=data["genrecli"],
+#         nomcli=data["nomcli"],
+#         prenomcli=data["prenomcli"],
+#         adresse1cli=data["adresse1cli"],
+#         villecliid=data["villecliid"],
+#         telcli=data["telcli"],
+#         emailcli=data["emailcli"],
+#         portcli=data["portcli"],
+#         newsletter=data["newsletter"]
+#     )
 
-    session.add(nouveau_client)
-    session.commit()  
-    session.refresh(nouveau_client)
-    return jsonify({
-        "codcli": nouveau_client.codcli,
-        "genrecli": nouveau_client.genrecli,
-        "nomcli": nouveau_client.nomcli,
-        "prenomcli": nouveau_client.prenomcli,
-        "adresse1cli": nouveau_client.adresse1cli,
-        "villecli_id": nouveau_client.villecli_id,
-        "telcli": nouveau_client.telcli,
-        "emailcli": nouveau_client.emailcli,
-        "portcli": nouveau_client.portcli,
-        "newsletter": nouveau_client.newsletter
-    }), 201
+#     session.add(nouveau_client)
+#     session.commit()  
+#     session.refresh(nouveau_client)
+#     return jsonify({
+#         "codcli": nouveau_client.codcli,
+#         "genrecli": nouveau_client.genrecli,
+#         "nomcli": nouveau_client.nomcli,
+#         "prenomcli": nouveau_client.prenomcli,
+#         "adresse1cli": nouveau_client.adresse1cli,
+#         "villecli_id": nouveau_client.villecli_id,
+#         "telcli": nouveau_client.telcli,
+#         "emailcli": nouveau_client.emailcli,
+#         "portcli": nouveau_client.portcli,
+#         "newsletter": nouveau_client.newsletter
+#     }), 201
 
-    if __name == "__main":
-        app.run(debug=True)
+#     if __name == "__main":
+#         app.run(debug=True)
 
-@app.route('/client', methods=['DELETE'])
-def supprimer_client():
-    return ''' <p>test</p>'''
+# @app.route('/client', methods=['DELETE'])
+# def supprimer_client():
+#     return ''' <p>test</p>'''
 
-@app.route('/client', methods=['PUT'])
-def modifier_client():
-    return ''' <p>test</p>'''
-
-
+# @app.route('/client', methods=['PUT'])
+# def modifier_client():
+#     return ''' <p>test</p>'''
 
 
+# @app.route('/objet', methods=['GET'])
+# def article():
+#     return
 
-@app.route('/objet', methods=['GET'])
-def article():
-    return
-
-@app.route('/commande', methods=['GET'])
-def commande():
-    return
+# @app.route('/commande', methods=['GET'])
+# def commande():
+#     return
 
 # Ajouter Utilisateur :
 
@@ -216,7 +213,21 @@ def maj_utilisateur(code_utilisateur):
         "date_insc_utilisateur":  utilisateur.date_insc_utilisateur
     }) 
 
+# Supprimer ( désactiver ) Utilisateur
 
+@app.route("/utilisateurs/<int:codcli>/desactiver", methods=["PUT"])
+def desactiv_utilisateur(code_utilisateur):
+    utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
+    
+    if utilisateur is None:
+            return jsonify({"error": "Utilisateur non trouvé"}), 404     
+    else:
+        utilisateur.est_actif = False
+        session.commit()
+        session.refresh(utilisateur)
+        return jsonify({
+            "code_utilisateur": utilisateur.code_utilisateur,
+            "est_actif": utilisateur.est_actif
 
 
 app.run()
