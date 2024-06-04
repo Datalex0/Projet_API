@@ -77,13 +77,13 @@ def home():
 # def article():
 #     return
 
-# @app.route('/commande', methods=['GET'])
+# @app.route('/commande', methods=['POST'])
 # def commande():
 #     return
 
 # Ajouter Utilisateur :
 
-@app.route('/utilisateurs', methods=['GET'])
+@app.route('/utilisateurs', methods=['POST'])
 def ajout_utilisateur():
     data = request.json
     nouveau_utilisateur = Utilisateur(
@@ -91,8 +91,7 @@ def ajout_utilisateur():
         nom_utilisateur=data["nom_utilisateur"],
         prenom_utilisateur=data["prenom_utilisateur"],
         username=data["username"],
-        couleur_fond_utilisateur=data["couleur_fond_utilisateur"],
-        date_insc_utilisateur=data["date_insc_utilisateur"]
+        date_insc_utilisateur=data["date_insc_utilisateur"],
     )
 
     session.add(nouveau_utilisateur)
@@ -103,8 +102,8 @@ def ajout_utilisateur():
         "nom_utilisateur": nouveau_utilisateur.nom_utilisateur,
         "prenom_utilisateur": nouveau_utilisateur.prenom_utilisateur,
         "username": nouveau_utilisateur.username,
-        "couleur_fond_utilisateur": nouveau_utilisateur.couleur_fond_utilisateur,
-        " date_insc_utilisateur": nouveau_utilisateur.date_insc_utilisateur
+        " date_insc_utilisateur": nouveau_utilisateur.date_insc_utilisateur,
+        "est_actif": nouveau_utilisateur.est_actif
     }), 201
 
     if __name == "__main":
@@ -120,8 +119,8 @@ def read_liste_utilisateurs():
             "nom_utilisateur": utilisateur.nom_utilisateur,
             "prenom_utilisateur": utilisateur.prenom_utilisateur,
             "username": utilisateur.username,
-            "couleur_fond_utilisateur": utilisateur.couleur_fond_utilisateur,
-            "date_insc_utilisateur": utilisateur.date_insc_utilisateur
+            "date_insc_utilisateur": utilisateur.date_insc_utilisateur,
+            "est_actif": utilisateur.est_actif
     } for utilisateur in utilisateurs])
 
 # Afficher infos utilisateur
@@ -137,8 +136,8 @@ def read_utilisateur(code_utilisateur):
             "nom_utilisateur": utilisateur.nom_utilisateur,
             "prenom_utilisateur": utilisateur.prenom_utilisateur,
             "username": utilisateur.username,
-            "couleur_fond_utilisateur": utilisateur.couleur_fond_utilisateur,
-            "date_insc_utilisateur": utilisateur.date_insc_utilisateur
+            "date_insc_utilisateur": utilisateur.date_insc_utilisateur,
+            "est_actif": utilisateur.est_actif
     }])
  
 # Mettre à jour les infos Utilisateur 
@@ -160,10 +159,10 @@ def maj_utilisateur(code_utilisateur):
             utilisateur.prenom_utilisateur = data["prenom_utilisateur"]
         if "username" in data:
             utilisateur.username = data["username"]
-        if "couleur_fond_utilisateur" in data:
-            utilisateur.couleur_fond_utilisateur = data["couleur_fond_utilisateur"]
         if "date_insc_utilisateur" in data:
             utilisateur.date_insc_utilisateur = data["date_insc_utilisateur"]
+        if "est_actif" in data:
+            utilisateur.est_actif = data["est_actif"]
 
     session.commit()
     session.refresh(utilisateur)
@@ -173,49 +172,15 @@ def maj_utilisateur(code_utilisateur):
         "nom_utilisateur":  utilisateur.nom_utilisateur,
         "prenom_utilisateur":  utilisateur.prenom_utilisateur,
         "username":  utilisateur.username,
-        "couleur_fond_utilisateur":  utilisateur.couleur_fond_utilisateur,
-        "date_insc_utilisateur":  utilisateur.date_insc_utilisateur
+        "date_insc_utilisateur":  utilisateur.date_insc_utilisateur,
+        "est_actif": utilisateur.est_actif
     }) 
 
-# Supprimer Utilisateur 
 
-@app.route("/utilisateurs/<int:code_utilisateur>", methods=["PUT"])
-def maj_utilisateur(code_utilisateur):
-    data = request.json
-    utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
-
-    if utilisateur is None:
-        return jsonify({"message": "Utilisateur non trouvé"}), 404
-
-    else:
-        if "code_utilisateur" in data:
-            utilisateur.code_utilisateur = data["code_utilisateur"]
-        if "nom_utilisateur" in data:
-            utilisateur.nom_utilisateur = data["nom_utilisateur"]
-        if "prenom_utilisateur" in data:
-            utilisateur.prenom_utilisateur = data["prenom_utilisateur"]
-        if "username" in data:
-            utilisateur.username = data["username"]
-        if "couleur_fond_utilisateur" in data:
-            utilisateur.couleur_fond_utilisateur = data["couleur_fond_utilisateur"]
-        if "date_insc_utilisateur" in data:
-            utilisateur.date_insc_utilisateur = data["date_insc_utilisateur"]
-
-    session.commit()
-    session.refresh(utilisateur)
-
-    return jsonify({
-        "code_utilisateur":  utilisateur.code_utilisateur,
-        "nom_utilisateur":  utilisateur.nom_utilisateur,
-        "prenom_utilisateur":  utilisateur.prenom_utilisateur,
-        "username":  utilisateur.username,
-        "couleur_fond_utilisateur":  utilisateur.couleur_fond_utilisateur,
-        "date_insc_utilisateur":  utilisateur.date_insc_utilisateur
-    }) 
 
 # Supprimer ( désactiver ) Utilisateur
 
-@app.route("/utilisateurs/<int:codcli>/desactiver", methods=["PUT"])
+@app.route("/utilisateurs/<int:code_utilisateur>/desactiver", methods=["PUT"])
 def desactiv_utilisateur(code_utilisateur):
     utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
     
@@ -228,6 +193,6 @@ def desactiv_utilisateur(code_utilisateur):
         return jsonify({
             "code_utilisateur": utilisateur.code_utilisateur,
             "est_actif": utilisateur.est_actif
-
+        })
 
 app.run()
