@@ -91,7 +91,7 @@ def ajout_utilisateur():
         nom_utilisateur=data["nom_utilisateur"],
         prenom_utilisateur=data["prenom_utilisateur"],
         username=data["username"],
-        date_insc_utilisateur=data["date_insc_utilisateur"],
+        date_insc_utilisateur=data["date_insc_utilisateur"]
     )
 
     session.add(nouveau_utilisateur)
@@ -102,12 +102,10 @@ def ajout_utilisateur():
         "nom_utilisateur": nouveau_utilisateur.nom_utilisateur,
         "prenom_utilisateur": nouveau_utilisateur.prenom_utilisateur,
         "username": nouveau_utilisateur.username,
-        " date_insc_utilisateur": nouveau_utilisateur.date_insc_utilisateur,
+        "date_insc_utilisateur": nouveau_utilisateur.date_insc_utilisateur,
         "est_actif": nouveau_utilisateur.est_actif
     }), 201
 
-    if __name == "__main":
-        app.run(debug=True)
 
 # Afficher liste utilisateur
 
@@ -195,4 +193,5 @@ def desactiv_utilisateur(code_utilisateur):
             "est_actif": utilisateur.est_actif
         })
 
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
