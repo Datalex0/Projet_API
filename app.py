@@ -82,16 +82,8 @@ def ajout_objet():
     nouvelobjet = Objet(
         codobj=data["genrecli"],
         libobj=data["libobj"],
-        tailleobj=data["tailleobj"],
-        puobj=data["puobj"],
         poidsobj=data["poidsobj"],
-        indispobj=data["indispobj"],
-        o_imp=data["o_imp"],
-        o_aff=data["o_aff"],
-        o_cartp=data["o_cartp"],
-        points=data["points"],
-        o_ordre_aff=data["o_ordre_aff"],
-        condit=data["condit"]
+        nb_points=data["nb_points"]
     )
 
     # Ajouter le client à la session
@@ -102,26 +94,22 @@ def ajout_objet():
     return jsonify({
         "codobj": nouvelobjet.codobj,
         "libobj": nouvelobjet.libobj,
-        "tailleobj": nouvelobjet.tailleobj,
-        "puobj": nouvelobjet.puobj,
         "poidsobj": nouvelobjet.poidsobj,
-        "indispobj": nouvelobjet.indispobj,
-        "o_imp": nouvelobjet.o_imp,
-        "o_aff": nouvelobjet.o_aff,
-        "o_cartp": nouvelobjet.o_cartp,
-        "points": nouvelobjet.points,
-        "o_ordre_aff": nouvelobjet.o_ordre_aff,
-        "condit": nouvelobjet.condit,
+        "nb_points": nouvelobjet.nb_points,
     }), 201
 
-if __name__ == "__main__":
-    app.run(debug=True)
 
-# @app.route('/objet/suppr', methods=['GET'])
-# def suppr_objet():
-#     data = request.json
-#     supprimer
-#     return 
+@app.route('/objet/suppr', methods=['GET'])
+def suppr_objet(codobj):
+    codobj = request.args.get('codobj')
+    if codobj is None:
+        return jsonify({'Alerte': 'Code de l\'objet non fourni'}), 400
+    obj = Objet.query.get(codobj)
+    if obj is None : 
+        return jsonify({'Alerte' : 'Objet introuvable'}), 404
+    obj.est_actif = False
+    session.commit()
+    return 
 
 # @app.route('/objet/modifier', methods=['GET'])
 # def modifier():
@@ -174,3 +162,5 @@ if __name__ == "__main__":
 #     return ''' <h1>Consulter un utilisateur : </h1>'''
 
 
+if __name__ == "__main__":
+    app.run(debug=True)

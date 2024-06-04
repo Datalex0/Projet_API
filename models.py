@@ -27,6 +27,7 @@ class Commande(Base):
 	code_utilisateur = Column(Integer, ForeignKey('t_utilisateur.code_utilisateur'))
 	num_suivi = Column(String(50), default=None)
 	datexp = Column(Date)
+	est_actif = Column(Boolean, default=True)
 
 	__table_args__ = (Index('commmande_index', "codcli"),)
  
@@ -39,6 +40,7 @@ class CommObjet(Base):
 	codmodele = Column(Integer)
 	poids = Column(Numeric, default=0.0000)
 	montant_affranchissement = Column(Float, default=0.0000)
+	est_actif = Column(Boolean, default=True)
 
 class Objet(Base):
 	__tablename__ = "t_objet"
@@ -47,6 +49,7 @@ class Objet(Base):
 	libobj = Column(String(50), default=None)
 	poidsobj = Column(Numeric, default=0.0000)
 	nb_points = Column(Integer, default=0)
+	est_actif = Column(Boolean, default=True)
 
 class ObjetCond(Base):
 	__tablename__ = "rel_objet_conditionnement"
@@ -66,6 +69,7 @@ class Conditionnement(Base):
     qte_min = Column(Integer)
     qte_max = Column(Integer)
     objets = relationship("ObjetCond",back_populates='condit')
+    est_actif = Column(Boolean, default=True)
 
 class Utilisateur(Base):
 	__tablename__ = "t_utilisateur"
@@ -75,5 +79,6 @@ class Utilisateur(Base):
 	prenom_utilisateur = Column(String(50), default=None)
 	username = Column(String(50), default=None)
 	date_insc_utilisateur = Column(Date)
+	est_actif = Column(Boolean, default=True)
 
 Base.metadata.create_all(bind=engine)
