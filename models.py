@@ -2,9 +2,10 @@ from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey, Index
 
 from sqlalchemy.orm import relationship
 
-from database import Base, engine
+from database import Base, engine, SessionLocal
 
 import flask
+from flask import request, jsonify
 
 # Justine - 12122022 -  V1
 # classe permettant de définir les modèles de la base de données pour créer ou accéder aux tables
@@ -170,6 +171,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 #Affiche un message autre que bad gateway s'il y a une erreur dans l'appli
 
+session = SessionLocal()
 
 @app.route('/', methods=['GET'])
 def home():
@@ -182,27 +184,40 @@ def home():
 	<a href = '/utilisateur'><h3>Utilisateur</h3></a>
  '''
 
-@app.route('/client', methods=['GET'])
-def client():
-    return ''' <a href = '/client/ajout'><h3>Ajouter un client</h3></a>'''
+@app.route("/clients", methods=["POST"])
+def ajouterclient():
+    # Créer un nouveau client
+    data = request.json
+    nouveau_client = Client(
+        genrecli=data["genrecli"],
+        nomcli=data["nomcli"],
+        prenomcli=data["prenomcli"],
+        adresse1cli=data["adresse1cli"],
+        villecliid=data["villecliid"],
+        telcli=data["telcli"],
+        emailcli=data["emailcli"],
+        portcli=data["portcli"],
+        newsletter=data["newsletter"]
+    )
 
-@app.route('/client/ajout', methods=['GET'])
-def ajout_client(codcli,genrecli,nomcli,prenomcli,adresse1cli,adresse2cli,adresse3cli,villecli_id,telcli,emailcli,portcli,newsletter) :     
-    nv_client = Client(
-		codcli,
-		genrecli,
-		nomcli,
-		prenomcli,
-		adresse1cli,
-		adresse2cli,
-		adresse3cli,
-		villecli_id,
-		telcli,
-		emailcli,
-		portcli,
-		newsletter
-	)
-    return ''' <h1>Ajouter un client : </h1>'''
+    # Ajouter le client à la session
+    session.add(nouveau_client)
+    session.commit()  # Valider la transaction
+    session.refresh(nouveau_client)
+    # print("{prenomcli} {nomcli} ajouté avec succès")
+    return jsonify({
+        "codcli": nouveau_client.codcli,
+        "genrecli": nouveau_client.genrecli,
+        "nomcli": nouveau_client.nomcli,
+        "prenomcli": nouveau_client.prenomcli,
+        "adresse1cli": nouveau_client.adresse1cli,
+        "villecli_id": nouveau_client.villecli_id,
+        "telcli": nouveau_client.telcli,
+        "emailcli": nouveau_client.emailcli,
+        "portcli": nouveau_client.portcli,
+        "newsletter": nouveau_client.newsletter
+    }), 201
+
 
 @app.route('/client/suppr', methods=['GET'])
 def suppr():
@@ -216,10 +231,48 @@ def modifier():
 def consulter():
     return ''' <h1>Consulter un client : </h1>'''
 
-# # OBJET
-# @app.route('/objet', methods=['GET'])
-# def objet():
-#     return
+# OBJET
+@app.route('/objet', methods=['POST'])
+def ajout_objet():
+    # Créer un nouveau client
+    data = request.json
+    nouvelobjet = Objet(
+        codobj=data["genrecli"],
+        libobj=data["libobj"],
+        tailleobj=data["tailleobj"],
+        puobj=data["puobj"],
+        poidsobj=data["poidsobj"],
+        indispobj=data["indispobj"],
+        o_imp=data["o_imp"],
+        o_aff=data["o_aff"],
+        o_cartp=data["o_cartp"],
+        points=data["points"],
+        o_ordre_aff=data["o_ordre_aff"],
+        condit=data["condit"]
+    )
+
+    # Ajouter le client à la session
+    session.add(nouvelobjet)
+    session.commit()  # Valider la transaction
+    session.refresh(nouvelobjet)
+    # print("{prenomcli} {nomcli} ajouté avec succès")
+    return jsonify({
+        "codobj": nouvelobjet.codobj,
+        "libobj": nouvelobjet.libobj,
+        "tailleobj": nouvelobjet.tailleobj,
+        "puobj": nouvelobjet.puobj,
+        "poidsobj": nouvelobjet.poidsobj,
+        "indispobj": nouvelobjet.indispobj,
+        "o_imp": nouvelobjet.o_imp,
+        "o_aff": nouvelobjet.o_aff,
+        "o_cartp": nouvelobjet.o_cartp,
+        "points": nouvelobjet.points,
+        "o_ordre_aff": nouvelobjet.o_ordre_aff,
+        "condit": nouvelobjet.condit,
+    }), 201
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 # @app.route('/objet/ajout', methods=['GET'])
 # def ajout():
@@ -281,7 +334,5 @@ def consulter():
 
 
 
-
-app.run()
 
 
