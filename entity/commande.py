@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect
 from database.database import SessionLocal
 from database.models import Commande
 from sqlalchemy import select, text
@@ -49,6 +49,20 @@ def ajouter_command():
     if request.method == 'POST':
         data = request.json
 
-        print(data)
+        nouvelle_commande = Commande(
+            datcde=data['datcde'],
+            codcli=data['codcli'],
+            montant_total=data['montant_total'],
+            code_utilisateur=data['code_utilisateur'],
+            num_suivi=data['num_suivi'],
+            datexp=data['datexp']
+        )
 
-    return "null"
+        with SessionLocal() as session:
+            session.add(nouvelle_commande)
+            session.commit()
+
+            id = session.execute(select(Commande.codcde).where(
+                Commande.codcli == data['codcli'], Commande.datcde == data['datcde'])).scalar()
+
+            return redirect(f'/commande?id_cde={id}')
