@@ -84,6 +84,8 @@ def article():
 def commande():
     return
 
+# AFFICHER INFOS GENERALES UTILISATEUR ( PAS ID ET ROLE )
+
 @app.route('/utilisateurs/<int:code_utilisateur>', methods=['GET'])
 def read_utilisateur(code_utilisateur):
     utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
