@@ -81,4 +81,5 @@ class Utilisateur(Base):
 	date_insc_utilisateur = Column(Date)
 	est_actif = Column(Boolean, default=True)
 
+# Création des tables
 Base.metadata.create_all(bind=engine)
