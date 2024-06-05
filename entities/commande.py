@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, redirect
 from database.database import SessionLocal
 from database.models import Commande
-from sqlalchemy import select, text
+from sqlalchemy import select
 
 cde = Blueprint('commande', __name__)
 
