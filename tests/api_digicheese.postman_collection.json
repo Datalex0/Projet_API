@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "3b797faf-affc-4fec-8eb9-ba3d123c3285",
+		"name": "api_digicheese",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30355304",
+		"_collection_link": "https://www.postman.com/payload-cosmologist-5083436/workspace/personal-workspace/collection/30355304-3b797faf-affc-4fec-8eb9-ba3d123c3285?action=share&source=collection_link&creator=30355304"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Ajout client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"adresse\": \"123 Rue Principale\",\r\n        \"codcli\": 1,\r\n        \"cp\": \"44000\",\r\n        \"email\": \"jean.dupont@example.com\",\r\n        \"est_actif\": true,\r\n        \"genre\": \"M\",\r\n        \"nom\": \"Dupont5\",\r\n        \"prenom\": \"Jean5\",\r\n        \"ville\": \"Nantes\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/clients",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/clients/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher liste client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/clients",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mise à jour client",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"adresse\": \"125 Rue Principale\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/clients/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivation client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"libcondit\": \"grand carton\",\r\n        \"poidscondit\": 2,\r\n        \"qte_min\": 5,\r\n        \"qte_max\": 8\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/clients/1/desactiver",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"clients",
+								"1",
+								"desactiver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Objet",
+			"item": [
+				{
+					"name": "Ajout objet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codobj\" : 1,\r\n    \"libobj\" : \"objet_test2\",\r\n    \"poidsobj\" : 49.3,\r\n    \"nb_points\" : 49\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/objet",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"objet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher objet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codobj\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/objet/consulter",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"objet",
+								"consulter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mise à jour objet",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codobj\": 1,\r\n    \"parametre\": \"poidsobj\",\r\n    \"value\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/objet/modifier",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"objet",
+								"modifier"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivation objet",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codobj\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/objet/suppr",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"objet",
+								"suppr"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilisateurs",
+			"item": [
+				{
+					"name": "Ajout utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"code_utilisateur\": \"2072\",\r\n        \"nom_utilisateur\": \"Bardella\",\r\n        \"prenom_utilisateur\": \"Jordan\",\r\n        \"username\": \"Jordan9320\",\r\n        \"date_insc_utilisateur\": \"2024-03-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/utilisateurs",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"utilisateurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher utilisateur",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/utilisateurs/2072",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"utilisateurs",
+								"2072"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher liste utilisateurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/utilisateurs",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"utilisateurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mise à jour utilisateur",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"code_utilisateur\": \"2072\",\r\n        \"nom_utilisateur\": \"Bardella\",\r\n        \"prenom_utilisateur\": \"Jordan\",\r\n        \"username\": \"Swag du 93\",\r\n        \"date_insc_utilisateur\": \"2024-03-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/utilisateurs/2072",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"utilisateurs",
+								"2072"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivation utilisateur",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/utilisateurs/2072/desactiver",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"utilisateurs",
+								"2072",
+								"desactiver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conditionnement",
+			"item": [
+				{
+					"name": "Ajout conditionnement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"libcondit\": \"Distingo 500 g\",\r\n        \"poidscondit\": 400,\r\n        \"qte_min\": 3,\r\n        \"qte_max\": 4\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/conditionnements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"conditionnements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher liste conditionnement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/conditionnements",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"conditionnements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher conditionnement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/conditionnements/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"conditionnements",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mise à jour conditionnement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"poidscondit\": \"500\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/conditionnements/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"conditionnements",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desactivation conditionnement",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/conditionnements/4/desactiver",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"conditionnements",
+								"4",
+								"desactiver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commandes",
+			"item": []
+		}
+	]
+}
