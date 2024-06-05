@@ -18,4 +18,4 @@ Base = declarative_base()
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 with SessionLocal() as session:
-    print("OK ça marche !")
+    print("Connexion réussie")
