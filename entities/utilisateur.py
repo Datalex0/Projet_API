@@ -1,18 +1,15 @@
-import flask
-from flask import request, jsonify
-from database import Base, engine
-from sqlalchemy.orm import Session
-from models import Utilisateur
-from database import SessionLocal 
+from flask import request, jsonify, Blueprint
+from database.models import Utilisateur
+from database.database import SessionLocal
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+user = Blueprint('utilisateur', __name__)
+
 
 session = SessionLocal()
 
 # Ajouter Utilisateur :
 
-@app.route('/utilisateurs', methods=['POST'])
+@user.route('/utilisateurs', methods=['POST'])
 def ajout_utilisateur():
     data = request.json
     nouveau_utilisateur = Utilisateur(
@@ -38,7 +35,7 @@ def ajout_utilisateur():
 
 # Afficher liste utilisateur
 
-@app.route("/utilisateurs", methods=["GET"])
+@user.route("/utilisateurs", methods=["GET"])
 def read_liste_utilisateurs():
     utilisateurs = session.query(Utilisateur).all()
     return jsonify([{
@@ -52,7 +49,7 @@ def read_liste_utilisateurs():
 
 # Afficher infos utilisateur
 
-@app.route('/utilisateurs/<int:code_utilisateur>', methods=['GET'])
+@user.route('/utilisateurs/<int:code_utilisateur>', methods=['GET'])
 def read_utilisateur(code_utilisateur):
     utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
     if utilisateur is None:
@@ -69,7 +66,7 @@ def read_utilisateur(code_utilisateur):
  
 # Mettre à jour les infos Utilisateur 
 
-@app.route("/utilisateurs/<int:code_utilisateur>", methods=["PUT"])
+@user.route("/utilisateurs/<int:code_utilisateur>", methods=["PUT"])
 def maj_utilisateur(code_utilisateur):
     data = request.json
     utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
@@ -106,7 +103,7 @@ def maj_utilisateur(code_utilisateur):
 
 # Supprimer ( désactiver ) Utilisateur
 
-@app.route("/utilisateurs/<int:code_utilisateur>/desactiver", methods=["PUT"])
+@user.route("/utilisateurs/<int:code_utilisateur>/desactiver", methods=["PUT"])
 def desactiv_utilisateur(code_utilisateur):
     utilisateur = session.query(Utilisateur).filter(Utilisateur.code_utilisateur == code_utilisateur).first()
     
@@ -120,6 +117,3 @@ def desactiv_utilisateur(code_utilisateur):
             "code_utilisateur": utilisateur.code_utilisateur,
             "est_actif": utilisateur.est_actif
         })
-
-if __name__ == "__main__":
-    app.run(debug=True)

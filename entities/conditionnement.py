@@ -1,19 +1,15 @@
-import flask
-from flask import request, jsonify
-from database import Base, engine
-from sqlalchemy.orm import Session
-from models import Conditionnement
-from database import SessionLocal
+from flask import request, jsonify, Blueprint
+from database.models import Conditionnement
+from database.database import SessionLocal
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+cond = Blueprint('conditionnement', __name__)
 
 
 # Créer une session
 session = SessionLocal()
 
 # Afficher la liste des conditionnements
-@app.route("/conditionnements", methods=["GET"])
+@cond.route("/conditionnements", methods=["GET"])
 def afficher_conditionnements():
     conditionnements = session.query(Conditionnement).all()
     return jsonify([{
@@ -26,7 +22,7 @@ def afficher_conditionnements():
     } for conditionnement in conditionnements])
 
 # Afficher les infos d'un conditionnement
-@app.route("/conditionnements/<int:idcondit>", methods=["GET"])
+@cond.route("/conditionnements/<int:idcondit>", methods=["GET"])
 def afficher_conditionnement(idcondit):
     conditionnement = session.query(Conditionnement).filter(Conditionnement.idcondit == idcondit).first()
     if conditionnement is None:
@@ -43,7 +39,7 @@ def afficher_conditionnement(idcondit):
 
 
 # Ajouter un nouveau conditionnement à la base
-@app.route("/conditionnements", methods=["POST"])
+@cond.route("/conditionnements", methods=["POST"])
 def ajouter_conditionnement():
     # Créer un nouveau conditionnement
     data = request.json
@@ -69,7 +65,7 @@ def ajouter_conditionnement():
 
 
 # Mettre à jour une fiche conditionnement
-@app.route("/conditionnements/<int:idcondit>", methods=["PUT"])
+@cond.route("/conditionnements/<int:idcondit>", methods=["PUT"])
 def maj_conditionnement(idcondit):
     data = request.json
     # Requête pour récupérer un conditionnement par son ID
@@ -105,7 +101,7 @@ def maj_conditionnement(idcondit):
 
 
 # Supprimer (désactiver) une fiche conditionnement
-@app.route("/conditionnements/<int:idcondit>/desactiver", methods=["PUT"])
+@cond.route("/conditionnements/<int:idcondit>/desactiver", methods=["PUT"])
 def desactiv_conditionnement(idcondit):
     # Requête pour récupérer un conditionnement par son ID
     conditionnement = session.query(Conditionnement).filter(Conditionnement.idcondit == idcondit).first()
@@ -121,6 +117,3 @@ def desactiv_conditionnement(idcondit):
             "idcondit": conditionnement.idcondit,
             "est_actif": conditionnement.est_actif
     })
-
-if __name__ == "__main__":
-    app.run(debug=True)

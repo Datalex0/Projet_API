@@ -1,12 +1,8 @@
-import flask
-from flask import request, jsonify
-from database import Base, engine
-from sqlalchemy.orm import Session
-from models import Client
-from database import SessionLocal
+from flask import request, jsonify, Blueprint
+from database.models import Client
+from database.database import SessionLocal
 
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+client = Blueprint('client', __name__)
 
 
 # Créer une session
@@ -14,7 +10,7 @@ session = SessionLocal()
  
 
 # Afficher la liste des clients
-@app.route("/clients", methods=["GET"])
+@client.route("/clients", methods=["GET"])
 def afficher_clients():
     clients = session.query(Client).all()
     return jsonify([{
@@ -30,7 +26,7 @@ def afficher_clients():
     } for client in clients])
 
 # Afficher les infos d'un client
-@app.route("/clients/<int:codcli>", methods=["GET"])
+@client.route("/clients/<int:codcli>", methods=["GET"])
 def afficher_client(codcli):
     client = session.query(Client).filter(Client.codcli == codcli).first()
     if client is None:
@@ -50,7 +46,7 @@ def afficher_client(codcli):
 
 
 # Ajouter un nouveau client à la base
-@app.route("/clients", methods=["POST"])
+@client.route("/clients", methods=["POST"])
 def ajouter_client():
     # Créer un nouveau client
     data = request.json
@@ -82,7 +78,7 @@ def ajouter_client():
 
 
 # Mettre à jour une fiche client
-@app.route("/clients/<int:codcli>", methods=["PUT"])
+@client.route("/clients/<int:codcli>", methods=["PUT"])
 def maj_client(codcli):
     data = request.json
     # Requête pour récupérer un client par son ID
@@ -126,7 +122,7 @@ def maj_client(codcli):
 
 
 # Supprimer (désactiver) une fiche client
-@app.route("/clients/<int:codcli>/desactiver", methods=["PUT"])
+@client.route("/clients/<int:codcli>/desactiver", methods=["PUT"])
 def desactiv_client(codcli):
     # Requête pour récupérer un client par son ID
     client = session.query(Client).filter(Client.codcli == codcli).first()
@@ -142,6 +138,3 @@ def desactiv_client(codcli):
             "codcli": client.codcli,
             "est_actif": client.est_actif
     })
-
-if __name__ == "__main__":
-    app.run(debug=True)
