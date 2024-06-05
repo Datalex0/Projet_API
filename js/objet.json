@@ -1,0 +1,137 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Contributeurs : \n\nKévin Perquy\nAlexis Murail\nLuis-Miguel Borderon\nFlorence Bouchart",
+    "version": "1.0.0",
+    "title": "API"
+  },
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/objets": {
+      "post": {
+        "tags": [
+          "Objets"
+        ],
+        "summary": "Create a new objet",
+        "operationId": "server.create_object",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objet object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Objet"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Objet created"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Objets"
+        ],
+        "summary": "Get all objets",
+        "operationId": "server.get_objects",
+        "responses": {
+          "200": {
+            "description": "A list of objets",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Objet"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objets/{codobj}": {
+      "put": {
+        "tags": [
+          "Objets"
+        ],
+        "summary": "Update an existing objet",
+        "operationId": "server.update_object",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "codobj",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objet object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Objet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Objet updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Objets"
+        ],
+        "summary": "Delete an objet",
+        "operationId": "server.delete_object",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "codobj",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Objet deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Objet": {
+      "type": "object",
+      "properties": {
+        "codobj": {
+          "type": "integer"
+        },
+        "libobj": {
+          "type": "string"
+        },
+        "poidsobj": {
+          "type": "number",
+          "format": "float"
+        },
+        "nb_points": {
+          "type": "integer"
+        },
+        "est_actif": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
