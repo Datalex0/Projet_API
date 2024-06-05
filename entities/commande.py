@@ -21,7 +21,6 @@ def ConvertToJson(data):
 
     return commande
 
-
 @cde.route('/commande', methods=["GET"])
 def afficher_commande():
     if 'id_cli' in request.args:
