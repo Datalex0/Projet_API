@@ -16,18 +16,6 @@ app.config["DEBUG"] = True
 
 session = SessionLocal()
 
-@app.route('/', methods=['GET'])
-def home():
-	return '''<h1>Bienvenue sur notre projet d'API</h1>
-	<p><strong>Avec la participation de :</strong> </br></br>Alexis MURAIL</br>Kévin Perquy</br>Luis-Miguel Borderon</br>Florence Bouchart</p>
-	<h2>Entités : </h2>
- 	<a href = '/client'><h3>Client</h3></a>
-	<a href = '/objet'><h3>Objet</h3></a>
-	<a href = '/commande'><h3>Commande</h3></a>
-	<a href = '/utilisateur'><h3>Utilisateur</h3></a>
- '''
-
-
 # OBJET
 @app.route('/objet', methods=['POST'])
 def ajout_objet():
@@ -51,7 +39,6 @@ def ajout_objet():
         "poidsobj": nouvelobjet.poidsobj,
         "nb_points": nouvelobjet.nb_points,
     }), 201
-
 
 @app.route('/objet/suppr', methods=['PUT'])
 # Fonction de suppression (en réalité de désactivation) d'un objet:
@@ -78,9 +65,8 @@ def suppr_objet():
     
     return jsonify({'message': 'Objet désactivé avec succès'}), 200
 
-
 @app.route('/objet/modifier', methods=['PUT'])
-def modifier_objet(codobj,parametre,value):
+def modifier_objet():
     # On récupère les paramètres
     data = request.get_json()
     
@@ -113,10 +99,19 @@ def modifier_objet(codobj,parametre,value):
     session.commit()
     return jsonify({'message': 'Objet modifié avec succès'}), 200
 
-
-# @app.route('/objet/consulter', methods=['GET'])
-# def afficher_objet(codobj):
-#     return ''' <h1>Consulter un objet : </h1>'''
+@app.route('/objet/consulter', methods=['GET'])
+def afficher_objet(codobjet):
+    obj = session.query(Objet).filter(Objet.codobj == codobjet).first()
+    if obj is None:
+        return jsonify({"message": "Objet non trouvé"}), 404
+    else:
+        return jsonify([{
+        "codobj": obj.codobj,
+        "libobj": obj.libobj,
+        "poidsobj": obj.poidsobj,
+        "nb_points": obj.nb_points,
+        "est_actif": obj.est_actif
+    }])
 
 if __name__ == "__main__":
     app.run(debug=True)
