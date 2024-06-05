@@ -1,5 +1,3 @@
-# Justine - 12122022 - V1
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
