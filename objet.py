@@ -112,6 +112,3 @@ def afficher_objet(codobjet):
         "nb_points": obj.nb_points,
         "est_actif": obj.est_actif
     }])
-
-if __name__ == "__main__":
-    app.run(debug=True)
