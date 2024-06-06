@@ -1,0 +1,7 @@
+.venv
+.idea
+LICENSE.md
+README.md
+*__pycache__/
+.mypy_cache
+models_de_base.py
