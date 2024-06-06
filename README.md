@@ -31,4 +31,8 @@ Pour lancer Swagger et l'API en même temps, modifier le port dans server.py
 2. Connexion à l'API Swagger : [http://localhost:5000/api/ui/](http://localhost:5000/api/ui/)
 
 ## Vous trouverez : 
-- [Documentation technique](Documentation Technique.pdf)
+- [La Documentation Technique](https://github.com/Datalex0/Projet_API/blob/main/Documentation%20Technique.pdf)
+- Le code python
+- [La présentation powerpoint zippée](https://github.com/Datalex0/Projet_API/blob/main/Presentation_orale.zip)
+- Le fichier [requirements.txt](https://github.com/Datalex0/Projet_API/blob/main/requirements.txt)
+- Les fichiers test postman dans la branch [test](https://github.com/Datalex0/Projet_API/tree/test/tests)
