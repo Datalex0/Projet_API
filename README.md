@@ -1,12 +1,12 @@
 # Projet développement d'une API
 
-## Collaborateurs:
+## 👊 Collaborateurs:
 - Kévin Perquy
 - Alexis Murail
 - Luis-Miguel Borderon
 - Florence Bouchart
 
-## Prérequis :
+## 🎯 Prérequis :
 - MariaDB community 11.3 (ou MySQL)
 - IDE installé sur la machine
 - Postman installé sur la machine _(optionnel pour les tests)_
@@ -14,7 +14,7 @@
 - Python 3.11
 - Installation du requirement.txt
 
-## Utilisation de l'API : 
+## ⚙️ Utilisation de l'API : 
 1. Créer une base de données MySQL via MariaDB
 2. Télécharger le dossier Projet_API en entier
 3. Ouvrir le dossier dans VScode ou un autre IDE
@@ -22,7 +22,7 @@
    ```SQLALCHEMY_DATABASE_URL = "url_de_votre_base_de_données"```
 5. Exécuter le fichier main.py
 
-## Lancement de Swagger : 
+## 🚀 Lancement de Swagger : 
 **ATTENTION** : Impossibilité de lancer Swagger et l'API en simultanée.
 
 Pour lancer Swagger et l'API en même temps, modifier le port dans server.py
@@ -32,7 +32,7 @@ Pour lancer Swagger et l'API en même temps, modifier le port dans server.py
 
 ## Vous trouverez : 
 - [La Documentation Technique](https://github.com/Datalex0/Projet_API/blob/main/Documentation%20Technique.pdf)
-- Le code python
+- Le code python 🐍
 - [La présentation powerpoint zippée](https://github.com/Datalex0/Projet_API/blob/main/Presentation_orale.zip)
 - Le fichier [requirements.txt](https://github.com/Datalex0/Projet_API/blob/main/requirements.txt)
 - Les fichiers test postman dans la branch [test](https://github.com/Datalex0/Projet_API/tree/test/tests)
