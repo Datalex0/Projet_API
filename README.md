@@ -31,4 +31,4 @@ Pour lancer Swagger et l'API en même temps, modifier le port dans server.py
 2. Connexion à l'API Swagger : [http://localhost:5000/api/ui/](http://localhost:5000/api/ui/)
 
 ## Vous trouverez : 
-- [Documentation technique]()
+- [Documentation technique](Documentation Technique.pdf)
