@@ -1,0 +1,353 @@
+swagger: "2.0"
+info:
+  description: "API Backend du système de gestion de colis DIGICHEESE "
+  version: "1.0.0"
+  title: "API Backend - DIGICHEESE"
+basePath: "/api"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+paths:
+
+  # Objets
+  /objets:
+    post:
+      tags:
+        - "Objet"
+      summary: "Ajouter un objet"
+      operationId: "server.create_object"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Objet object"
+          required: true
+          schema:
+            $ref: "#/definitions/Objet"
+      responses:
+        201:
+          description: "Objet created"
+    get:
+      tags:
+        - "Objet"
+      summary: "Afficher la liste des objets"
+      operationId: "server.get_objects"
+      responses:
+        200:
+          description: "Liste des objets"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Objet"
+  /objets/{codobj}:
+    put:
+      tags:
+        - "Objet"
+      summary: "Modifier un objet existant"
+      operationId: "server.update_object"
+      parameters:
+        - in: "path"
+          name: "codobj"
+          type: "integer"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Objet object"
+          required: true
+          schema:
+            $ref: "#/definitions/Objet"
+      responses:
+        200:
+          description: "Objet updated"
+    delete:
+      tags:
+        - "Objet"
+      summary: "Supprimer un objet"
+      operationId: "server.delete_object"
+      parameters:
+        - in: "path"
+          name: "codobj"
+          type: "integer"
+          required: true
+      responses:
+        204:
+          description: "Objet deleted"
+
+    # Utilisateurs
+  /utilisateurs:
+    post:
+      tags:
+        - "Utilisateur"
+      summary: "Ajouter un utilisateur"
+      operationId: "server.create_user"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Utilisateur object"
+          required: true
+          schema:
+            $ref: "#/definitions/Utilisateur"
+      responses:
+        201:
+          description: "Utilisateur created"
+    get:
+      tags:
+        - "Utilisateur"
+      summary: "Afficher la liste des utilisateurs"
+      operationId: "server.get_users"
+      responses:
+        200:
+          description: "A list of utilisateurs"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Utilisateur"
+  /utilisateurs/{code_utilisateur}:
+    put:
+      tags:
+        - "Utilisateur"
+      summary: "Modifier un utilisateur existant"
+      operationId: "server.update_user"
+      parameters:
+        - in: "path"
+          name: "code_utilisateur"
+          type: "integer"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Utilisateur object"
+          required: true
+          schema:
+            $ref: "#/definitions/Utilisateur"
+      responses:
+        200:
+          description: "Utilisateur updated"
+    delete:
+      tags:
+        - "Utilisateur"
+      summary: "Supprimer un utilisateur"
+      operationId: "server.delete_user"
+      parameters:
+        - in: "path"
+          name: "code_utilisateur"
+          type: "integer"
+          required: true
+      responses:
+        204:
+          description: "Utilisateur deleted"
+  
+   # Commandes
+  /commandes:
+    post:
+      tags:
+        - "Commande"
+      summary: "Ajouter une commande"
+      operationId: "server.create_order"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Commande object"
+          required: true
+          schema:
+            $ref: "#/definitions/Commande"
+      responses:
+        201:
+          description: "Commande created"
+    get:
+      tags:
+        - "Commande"
+      summary: "Voir la liste des commandes"
+      operationId: "server.get_orders"
+      responses:
+        200:
+          description: "A list of commandes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Commande"
+  /commandes/{codcde}:
+    put:
+      tags:
+        - "Commande"
+      summary: "Modifier une commande existante"
+      operationId: "server.update_order"
+      parameters:
+        - in: "path"
+          name: "codcde"
+          type: "integer"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Commande object"
+          required: true
+          schema:
+            $ref: "#/definitions/Commande"
+      responses:
+        200:
+          description: "Commande updated"
+    delete:
+      tags:
+        - "Commande"
+      summary: "Supprimer une commande"
+      operationId: "server.delete_order"
+      parameters:
+        - in: "path"
+          name: "codcde"
+          type: "integer"
+          required: true
+      responses:
+        204:
+          description: "Commande deleted"
+
+   # Clients
+  /clients:
+    post:
+      tags:
+        - "Client"
+      summary: "Ajouter un client"
+      operationId: "server.create_client"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Client object"
+          required: true
+          schema:
+            $ref: "#/definitions/Client"
+      responses:
+        201:
+          description: "Client created"
+    get:
+      tags:
+        - "Client"
+      summary: "Afficher la liste des clients"
+      operationId: "server.get_clients"
+      responses:
+        200:
+          description: "A list of clients"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Client"
+  /clients/{codcli}:
+    put:
+      tags:
+        - "Client"
+      summary: "Modifier un client existant"
+      operationId: "server.update_client"
+      parameters:
+        - in: "path"
+          name: "codcli"
+          type: "integer"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Client object"
+          required: true
+          schema:
+            $ref: "#/definitions/Client"
+      responses:
+        200:
+          description: "Client updated"
+    delete:
+      tags:
+        - "Client"
+      summary: "Supprimer un client"
+      operationId: "server.delete_client"
+      parameters:
+        - in: "path"
+          name: "codcli"
+          type: "integer"
+          required: true
+      responses:
+        204:
+          description: "Client deleted"
+
+# DEFINITIONS
+definitions:
+
+  Objet:
+    type: "object"
+    properties:
+      codobj:
+        type: "integer"
+      libobj:
+        type: "string"
+      poidsobj:
+        type: "number"
+        format: "float"
+      nb_points:
+        type: "integer"
+      est_actif:
+        type: "boolean"
+
+
+  Utilisateur:
+    type: "object"
+    properties:
+      code_utilisateur:
+        type: "integer"
+      nom_utilisateur:
+        type: "string"
+      prenom_utilisateur:
+        type: "string"
+      username:
+        type: "string"
+      date_insc_utilisateur:
+        type: "string"
+        format: "date"
+      est_actif:
+        type: "boolean"
+
+  Commande:
+    type: "object"
+    properties:
+      codcde:
+        type: "integer"
+      datcde:
+        type: "string"
+        format: "date"
+      codcli:
+        type: "integer"
+      montant_total:
+        type: "number"
+        format: "float"
+      code_utilisateur:
+        type: "integer"
+      num_suivi:
+        type: "string"
+      datexp:
+        type: "string"
+        format: "date"
+      est_actif:
+        type: "boolean"
+
+  Client:
+    type: "object"
+    properties:
+      codcli:
+        type: "integer"
+      nom:
+        type: "string"
+      prenom:
+        type: "string"
+      adresse:
+        type: "string"
+      cp:
+        type: "string"
+      ville:
+        type: "string"
+      genre:
+        type: "string"
+      email:
+        type: "string"
+      est_actif:
+        type: "boolean"
