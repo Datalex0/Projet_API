@@ -1,4 +1,4 @@
-# Projet_API
+# Projet développement d'une API
 
 ## Collaborateurs:
 - Kévin Perquy
