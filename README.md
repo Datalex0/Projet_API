@@ -1,4 +1,4 @@
-# Projet_API
+# Projet développement d'une API
 
 ## Collaborateurs:
 - Kévin Perquy
@@ -16,4 +16,6 @@
 3. Ouvrir le dossier dans VScode ou un autre IDE
 4. Dans le dossier database, ouvrir database.py et remplacer l'url par celui de votre base de données :
    ```SQLALCHEMY_DATABASE_URL = "url_de_votre_base_de_données"```
-5. Lancer api.py
+5. Exécuter le fichier server.py. (Exécuter database.py avant si nécessaire)
+
+Connexion à l'API Swagger : http://localhost:5000/api/ui/
